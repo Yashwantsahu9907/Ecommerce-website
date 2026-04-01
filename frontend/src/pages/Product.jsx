@@ -6,7 +6,7 @@ import RelatedProduct from '../components/RelatedProduct'
 
 const Product = () => {
   const { productId } = useParams()
-  const { products, currency } = useContext(ShopContext)
+  const { products, currency, addToCart } = useContext(ShopContext)
 
   const [productData, setProductData] = useState(null)
   const [image, setImage] = useState('')
@@ -17,7 +17,6 @@ const Product = () => {
     if (!products || products.length === 0) return
 
     const foundProduct = products.find((item) => item._id === productId)
-
     if (foundProduct) {
       setProductData(foundProduct)
       setImage(foundProduct.image?.[0] || '')
@@ -106,17 +105,17 @@ const Product = () => {
           </div>
 
           {/* Add to Cart */}
-          <button className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>
+          <button onClick={() => addToCart(productData._id, size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'>
             ADD TO CART
           </button>
 
-         <hr className='mt-8 sm:w-4/5 border-gray-300/40' />
+          <hr className='mt-8 sm:w-4/5 border-gray-300/40' />
 
           {/* Info */}
           <div className='text-sm text-gray-700 mt-5 flex flex-col gap-1'>
             <p>100% Original product.</p>
             <p>Cash on delivery is available on this product.</p>
-            <p>Easy return and exchange policy within 7 days</p>
+            <p>Easy  return and exchange policy within 7 days</p>
           </div>
         </div>
       </div>

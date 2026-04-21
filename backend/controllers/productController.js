@@ -54,12 +54,32 @@ try {
 
 //Function for list product
 const listProduct = async (req, res) => {
+try {
 
+    const products =  await productModel.find({});
+    res.json({success:true,products})
+    
+} catch (error) {
+      console.log(error)
+    res.json({success:false, message:error.message})
+    
+}
 
 }
 
 //function for removing product
 const removeProduct = async (req, res) => {
+
+    try {
+
+        await productModel.flindByIdAndDelete(req.body.id)
+        res.json({success:true, message:"Product removed"})
+        
+    } catch (error) {
+          console.log(error)
+    res.json({success:false, message:error.message})
+        
+    }
 
 }
 
@@ -67,6 +87,17 @@ const removeProduct = async (req, res) => {
 
 //function for single products
 const singleProduct = async (req, res) => {
+
+    try {
+
+        const { producID } = req.body
+        const product = await productModel.findById(productId)
+        res.json({success:true, product})
+
+    } catch (error) {
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
 
 }
 

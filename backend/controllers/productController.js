@@ -12,10 +12,10 @@ try {
       const image3 = req.files.image3 && req.files.image3[0]
        const image4 = req.files.image4 && req.files.image4[0]
 
-       const images = [image1, image2, image3, image4.filter((item)=> item !== undefined)]
+       const images = [image1, image2, image3, image4].filter((item)=> item !== undefined)
 
        let imagesUrl = await Promise.all(
-        image1.map(async (item) => {
+        images.map(async (item) => {
             let result = await cloudinary.uploader.upload(item.path, {resource_type:'image'});
                 return result.secure_url
             
@@ -29,7 +29,7 @@ try {
         category,
         price : Number(price),
         subCategory,
-        bestseller: besteller === "true" ? true : false,
+        bestseller: bestSeller === "true" ? true : false,
         sizes: JSON.parse(sizes),
         image: imagesUrl,
         date : Date.now()
@@ -72,7 +72,7 @@ const removeProduct = async (req, res) => {
 
     try {
 
-        await productModel.flindByIdAndDelete(req.body.id)
+        await productModel.findByIdAndDelete(req.body.id)
         res.json({success:true, message:"Product removed"})
         
     } catch (error) {
@@ -90,7 +90,7 @@ const singleProduct = async (req, res) => {
 
     try {
 
-        const { producID } = req.body
+        const { productId } = req.body
         const product = await productModel.findById(productId)
         res.json({success:true, product})
 

@@ -154,7 +154,7 @@ useEffect (()=> {
 
           {/* Product sort */}
           <select onChange={(e)=> setSortType(e.target.value)} className='border-2 border-gray-300 text-sm px-2' >
-            <option value="relavant">Sort by: Relavent</option>
+            <option value="relavant">Sort by: Relevant</option>
             <option value="low-high">Sort by: Low to High </option>
              <option value="high-low">Sort by:High-low </option>
           </select>

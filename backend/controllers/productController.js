@@ -90,7 +90,7 @@ const singleProduct = async (req, res) => {
 
     try {
 
-        const { productId } = req.body
+        const productId = req.body?.productId || req.params.id
         const product = await productModel.findById(productId)
         res.json({success:true, product})
 
